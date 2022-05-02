@@ -26,26 +26,43 @@ export const engine = (nodes, nodeTypes) => {
 }
 
 export const resolveNodes = ({ type, inputData }) => {
+  const mapping = inputData?.mapping?.value.startsWith('row')
+    ? `[${inputData?.mapping?.value}]`
+    : `.${inputData?.mapping?.value}`
+
   switch(type) {
-    case 'joinText':
-      return `row.${inputData.mapping.value} = ${inputData.text1.value} + ${inputData.text2.value}`
-    case 'geo_point':
-      return `row.${inputData.mapping.value} = { lat: ${inputData.lat.value}, lon: ${inputData.lon.value} }`
+    case 'and':
+      return `Boolean(${inputData.bool1.value} && ${inputData.bool2.value})`
+    case 'or':
+      return `Boolean(${inputData.bool1.value} || ${inputData.bool2.value})`
+    case 'textEquals':
+      return `${inputData.text1.value} === ${inputData.text2.value}`
+    case 'textSwitch':
+      return `${inputData.boolean.value} ? ${inputData.text2.value} : ${inputData.text2.value}`
+
+    case 'textJoin':
+      return `row${mapping} = ${inputData.text1.value} + ${inputData.text2.value}`
+
     case 'add':
-      return `row.${inputData.mapping.value} = ${inputData.num1.value} + ${inputData.num2.value}`
+      return `row${mapping} = ${inputData.num1.value} + ${inputData.num2.value}`
     case 'subtract':
-      return `row.${inputData.mapping.value} = ${inputData.num1.value} - ${inputData.num2.value}`
+      return `row${mapping} = ${inputData.num1.value} - ${inputData.num2.value}`
     case 'multiply':
-      return `row.${inputData.mapping.value} = ${inputData.num1.value} * ${inputData.num2.value}`
+      return `row${mapping} = ${inputData.num1.value} * ${inputData.num2.value}`
     case 'divide':
-      return `row.${inputData.mapping.value} = ${inputData.num1.value} / ${inputData.num2.value}`
+      return `row${mapping} = ${inputData.num1.value} / ${inputData.num2.value}`
+
+    case 'geo_point':
+      return `row${mapping} = { lat: ${inputData.lat.value}, lon: ${inputData.lon.value} }`
+
     case 'aws':
-      return `row.${inputData.mapping.value} = await aws.${[inputData.aws.value]}(${inputData.field.value})`
+      return `row$${mapping} = await aws.${[inputData.aws.value]}(${inputData.field.value})`
+
     case 'rename':
-      return `row.${inputData.mapping.value} = ${inputData.field.value} \n` +
-             `delete row.${inputData.field.value}`
+      return `row${mapping} = ${inputData.field.value} \n` +
+        `delete row[${inputData.field.value}]`
     case 'delete':
-      return `delete row.${inputData.field.value}`
+      return `delete row[${inputData.field.value}]`
     default:
       return ''
   }

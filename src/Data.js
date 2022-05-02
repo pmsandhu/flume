@@ -17,10 +17,6 @@ export const row = [
     type: 'text',
   },
   {
-    name: 'age',
-    type: 'number',
-  },
-  {
     name: 'latitude',
     type: 'number',
   },
@@ -31,5 +27,13 @@ export const row = [
   {
     name: 'married',
     type: 'boolean',
+  },
+   {
+    name: 'value 1',
+    type: 'number',
+  },
+  {
+    name: 'value 2',
+    type: 'number'
   },
 ]

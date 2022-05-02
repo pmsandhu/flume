@@ -52,22 +52,6 @@ config
     ]
   })
   .addNodeType({
-    type: 'text',
-    label: 'Text',
-    description: 'Outputs a text value',
-    initialWidth: 170,
-    inputs: ports => [ports.text()],
-    outputs: ports => [ports.text()]
-  })
-  .addNodeType({
-    type: 'number',
-    label: 'Number',
-    description: 'Outputs a number',
-    initialWidth: 150,
-    inputs: ports => [ports.number()],
-    outputs: ports => [ports.number()]
-  })
-  .addNodeType({
     type: 'boolean',
     label: 'Boolean',
     description: 'Outputs a boolean value',
@@ -124,9 +108,8 @@ config
     ],
     outputs: ports => [ports.number({ name: 'result' })]
   })
-
   .addNodeType({
-    type: 'stringEquals',
+    type: 'textEquals',
     label: 'Text Equals',
     description: 'Outputs if text equals another string of text.',
     initialWidth: 170,
@@ -138,8 +121,8 @@ config
     outputs: ports => [ports.boolean({ name: 'result' })]
   })
   .addNodeType({
-    type: 'joinText',
-    label: 'Join Text',
+    type: 'textJoin',
+    label: 'Text Join',
     description: 'Joins two strings into one string',
     initialWidth: 180,
     inputs: ports => [
@@ -155,9 +138,10 @@ config
     description: 'Outputs one string if true, or a different string if false',
     initialWidth: 180,
     inputs: ports => [
-      ports.boolean({ name: 'boolean', label: 'Test' }),
+      ports.boolean({ name: 'boolean', label: 'Boolean input' }),
       ports.text({ name: 'text1', label: 'Text if true' }),
-      ports.text({ name: 'text2', label: 'Text if false' })
+      ports.text({ name: 'text2', label: 'Text if false' }),
+
     ],
     outputs: ports => [ports.text({ name: 'result' })]
   })
@@ -184,7 +168,7 @@ config
     ],
     outputs: ports => [ports.boolean({ name: 'result' })]
   })
-  
+
   .addNodeType({
     type: 'geo_point',
     label: 'Geopoint',
@@ -221,4 +205,3 @@ config
     }
   })
 
- 

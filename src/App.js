@@ -7,10 +7,13 @@ import { row } from './Data';
 
 export function App() {
   const nodeEditor = React.useRef();
+  const [generatedCode, setGeneratedCode] = React.useState('')
 
   const onClick = () => {
     const nodes = nodeEditor.current.getNodes();
-    engine(nodes, config.nodeTypes);
+    const code = engine(nodes, config.nodeTypes);
+    setGeneratedCode(code)
+
   };
 
   return (
@@ -19,13 +22,17 @@ export function App() {
       <span> Right click to add node</span>
       <br />
       <br />
+      <div style={{ height: '75vh'}}>
+
       <NodeEditor
         ref={nodeEditor}
         nodeTypes={config.nodeTypes}
         portTypes={config.portTypes}
-        defaultNodes={[{ x: -330, y: -360, type: 'row', initialWidth: 90 }]}
+        defaultNodes={[{ x: -500, y: -330, type: 'row', initialWidth: 90 }]}
         context={row}
       />
+      </div>
+      <pre>{generatedCode}</pre>
     </div>
   );
 }
