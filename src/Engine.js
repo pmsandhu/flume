@@ -1,0 +1,52 @@
+const getRootNode = nodes =>
+  nodes[Object.values(nodes).find(n => n.root === true).id]
+
+export const engine = (nodes, nodeTypes) => {
+  const root = getRootNode(nodes)
+  console.log(Object.entries(root.connections.outputs))
+
+  Object.entries(root.connections.outputs).forEach(([field, input]) => {
+    input.forEach(({ nodeId, portName }) => {
+      nodes[nodeId].inputData[portName].value = `row.${field}`
+    })
+  })
+
+  let fn = `function transformRow(row, aws) {` + '\n\t'
+
+  Object.values(nodes)
+    .filter(val => !val.root && Object.values(val.inputData).every(val => val.value))
+    .forEach(val => {
+      if (val.type === 'aws' && !fn.startsWith('async')) fn = `async ${fn}`
+      fn += `${resolveNodes(val)}\n\t`
+    })
+
+  fn += 'return row \n}'
+  console.log(fn)
+  return fn
+}
+
+export const resolveNodes = ({ type, inputData }) => {
+  switch(type) {
+    case 'joinText':
+      return `row.${inputData.mapping.value} = ${inputData.text1.value} + ${inputData.text2.value}`
+    case 'geo_point':
+      return `row.${inputData.mapping.value} = { lat: ${inputData.lat.value}, lon: ${inputData.lon.value} }`
+    case 'add':
+      return `row.${inputData.mapping.value} = ${inputData.num1.value} + ${inputData.num2.value}`
+    case 'subtract':
+      return `row.${inputData.mapping.value} = ${inputData.num1.value} - ${inputData.num2.value}`
+    case 'multiply':
+      return `row.${inputData.mapping.value} = ${inputData.num1.value} * ${inputData.num2.value}`
+    case 'divide':
+      return `row.${inputData.mapping.value} = ${inputData.num1.value} / ${inputData.num2.value}`
+    case 'aws':
+      return `row.${inputData.mapping.value} = await aws.${[inputData.aws.value]}(${inputData.field.value})`
+    case 'rename':
+      return `row.${inputData.mapping.value} = ${inputData.field.value} \n` +
+             `delete row.${inputData.field.value}`
+    case 'delete':
+      return `delete row.${inputData.field.value}`
+    default:
+      return ''
+  }
+}
