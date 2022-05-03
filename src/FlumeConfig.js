@@ -117,6 +117,7 @@ config
     inputs: ports => [
       ports.text({ name: 'text1', label: 'First String' }),
       ports.text({ name: 'text2', label: 'Second String' }),
+      ports.text({ name: 'mapping', label: 'Mapping Name' })
     ],
     outputs: ports => [ports.boolean({ name: 'result' })]
   })
@@ -141,7 +142,7 @@ config
       ports.boolean({ name: 'boolean', label: 'Boolean input' }),
       ports.text({ name: 'text1', label: 'Text if true' }),
       ports.text({ name: 'text2', label: 'Text if false' }),
-
+      ports.text({ name: 'mapping', label: 'Mapping Name' })
     ],
     outputs: ports => [ports.text({ name: 'result' })]
   })
@@ -153,7 +154,8 @@ config
     initialWidth: 150,
     inputs: ports => [
       ports.boolean({ name: 'bool1' }),
-      ports.boolean({ name: 'bool2' })
+      ports.boolean({ name: 'bool2' }),
+      ports.text({ name: 'mapping', label: 'Mapping Name' })
     ],
     outputs: ports => [ports.boolean({ name: 'result' })]
   })
@@ -164,7 +166,8 @@ config
     initialWidth: 150,
     inputs: ports => [
       ports.boolean({ name: 'bool1' }),
-      ports.boolean({ name: 'bool2' })
+      ports.boolean({ name: 'bool2' }),
+      ports.text({ name: 'mapping', label: 'Mapping Name' })
     ],
     outputs: ports => [ports.boolean({ name: 'result' })]
   })

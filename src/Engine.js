@@ -32,13 +32,13 @@ export const resolveNodes = ({ type, inputData }) => {
 
   switch(type) {
     case 'and':
-      return `Boolean(${inputData.bool1.value} && ${inputData.bool2.value})`
+      return `row${mapping} = Boolean(${inputData.bool1.value} && ${inputData.bool2.value})`
     case 'or':
-      return `Boolean(${inputData.bool1.value} || ${inputData.bool2.value})`
+      return `row${mapping} = Boolean(${inputData.bool1.value} || ${inputData.bool2.value})`
     case 'textEquals':
-      return `${inputData.text1.value} === ${inputData.text2.value}`
+      return `row${mapping} = ${inputData.text1.value} === ${inputData.text2.value}`
     case 'textSwitch':
-      return `${inputData.boolean.value} ? ${inputData.text2.value} : ${inputData.text2.value}`
+      return `row${mapping} = ${inputData.boolean.value} ? ${inputData.text2.value} : ${inputData.text2.value}`
 
     case 'textJoin':
       return `row${mapping} = ${inputData.text1.value} + ${inputData.text2.value}`
