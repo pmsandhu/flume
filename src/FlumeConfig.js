@@ -56,7 +56,10 @@ config
     label: 'Boolean',
     description: 'Outputs a boolean value',
     initialWidth: 150,
-    inputs: ports => [ports.boolean()],
+    inputs: ports => [
+      ports.boolean(),
+      ports.text({ name: 'mapping', label: 'Mapping Name' }),
+    ],
     outputs: ports => [ports.boolean()]
   })
 
