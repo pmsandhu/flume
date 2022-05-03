@@ -28,7 +28,7 @@ export function App() {
         ref={nodeEditor}
         nodeTypes={config.nodeTypes}
         portTypes={config.portTypes}
-        defaultNodes={[{ x: -500, y: -330, type: 'row', initialWidth: 90 }]}
+        defaultNodes={[{ x: -900, y: -330, type: 'row', initialWidth: 90 }]}
         context={row}
       />
       </div>
