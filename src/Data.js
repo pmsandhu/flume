@@ -29,11 +29,11 @@ export const row = [
     type: 'boolean',
   },
    {
-    name: 'value 1',
+    name: 'value1',
     type: 'number',
   },
   {
-    name: 'value 2',
+    name: 'value2',
     type: 'number'
   },
 ]
