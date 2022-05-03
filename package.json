@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "flume": "^0.6.3",
-    "prop-types": "^15.5.4",
+    "flume": "0.8.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },

@@ -36,7 +36,7 @@ config
     type: 'aws',
     name: 'aws',
     label: 'AWS Comprehend Function',
-    color: Colors.orange,
+    color: Colors.pink,
     controls: [
       Controls.select({
         name: 'value',
